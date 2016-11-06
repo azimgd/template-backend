@@ -14,20 +14,39 @@ export default ({ config, db }) => {
       type: Sequelize.STRING,
       field: 'title',
     },
-    content: {
+    description: {
       type: Sequelize.STRING,
-      field: 'content',
+      field: 'description',
     },
     price: {
       type: Sequelize.FLOAT,
       field: 'price',
+    },
+    createdAt: {
+      type: Sequelize.DATE,
+      field: 'created_at',
+      defaultValue: Sequelize.literal('NOW()'),
+    },
+    updatedAt: {
+      type: Sequelize.DATE,
+      field: 'updated_at',
+      defaultValue: Sequelize.literal('NOW()'),
     },
   }, {
     freezeTableName: true,
     timestamps: false,
   });
 
+  const findAll = () => Model.findAll();
+  const findOne = (id) => Model.findOne({ where: { id } });
+  const create = (product) => Model.create(product);
+
   return {
     Model,
+    queries: {
+      findAll,
+      findOne,
+      create,
+    },
   };
 };

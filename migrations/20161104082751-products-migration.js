@@ -9,7 +9,7 @@ module.exports = {
     title: {
       type: Sequelize.STRING
     },
-    content: {
+    description: {
       type: Sequelize.STRING
     },
     price: {
