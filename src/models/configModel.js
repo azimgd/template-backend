@@ -4,17 +4,23 @@ export default ({ config, db }) => {
   /**
    * Model
    */
-  const Model = db.define('pages', {
-    firstName: {
-      type: Sequelize.STRING,
-      field: 'first_name',
+  const Model = db.define('config', {
+    id: {
+      type: Sequelize.INTEGER,
+      field: 'id',
+      primaryKey: true,
     },
-    lastName: {
+    key: {
       type: Sequelize.STRING,
-      field: 'last_name',
-    }
+      field: 'key',
+    },
+    value: {
+      type: Sequelize.STRING,
+      field: 'value',
+    },
   }, {
     freezeTableName: true,
+    timestamps: false,
   });
 
   return {

@@ -1,5 +1,5 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('SubCategories', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('PageSubCategories', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -9,7 +9,7 @@ module.exports = {
     category_id: {
       type: Sequelize.INTEGER,
       references: {
-          model: 'Categories',
+          model: 'PageCategories',
           key: 'id',
       },
       onUpdate: 'cascade',
@@ -28,5 +28,5 @@ module.exports = {
     }
   }),
 
-  down: (queryInterface) => queryInterface.dropTable('SubCategories'),
+  down: (queryInterface) => queryInterface.dropTable('PageSubCategories'),
 };

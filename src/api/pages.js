@@ -6,21 +6,17 @@ export default ({ config, models: { pages } }) => resource({
 	id : 'page',
 
 	load(req, id, callback) {
-		let page = pages.find( page => page.id===id ),
-			err = page ? null : 'Not found';
-		callback(err, page);
+		pages.queries.findOne(id).then(_ => callback(null, _));
 	},
 
 	/** GET / - List all entities */
 	index({ params }, res) {
-		res.json([]);
+		pages.queries.findAll().then(_ => res.json(_));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
-		body.id = pages.length.toString(36);
-		pages.push(body);
-		res.json(body);
+		pages.queries.create(body).then(_ => res.json(_));
 	},
 
 	/** GET /:id - Return a given entity */
