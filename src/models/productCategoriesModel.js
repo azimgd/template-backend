@@ -4,15 +4,12 @@ export default ({ config, db }) => {
   /**
    * Model
    */
-  const Model = db.define('config', {
+  const Model = db.define('productCategories', {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
     },
-    key: {
-      type: Sequelize.STRING,
-    },
-    value: {
+    name: {
       type: Sequelize.STRING,
     },
     createdAt: {
@@ -30,7 +27,7 @@ export default ({ config, db }) => {
 
   const findAll = () => Model.findAll();
   const findOne = (id) => Model.findOne({ where: { id } });
-  const create = (config) => Model.create(config);
+  const create = (category) => Model.create(category);
 
   return {
     Model,

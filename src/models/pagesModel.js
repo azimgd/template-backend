@@ -7,25 +7,20 @@ export default ({ config, db }) => {
   const Model = db.define('pages', {
     id: {
       type: Sequelize.INTEGER,
-      field: 'id',
       primaryKey: true,
     },
     title: {
       type: Sequelize.STRING,
-      field: 'title',
     },
     content: {
       type: Sequelize.STRING,
-      field: 'content',
     },
     createdAt: {
       type: Sequelize.DATE,
-      field: 'created_at',
       defaultValue: Sequelize.literal('NOW()'),
     },
     updatedAt: {
       type: Sequelize.DATE,
-      field: 'updated_at',
       defaultValue: Sequelize.literal('NOW()'),
     },
   }, {

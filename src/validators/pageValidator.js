@@ -7,5 +7,8 @@ const schema = yup.object().shape({
   content: yup.string().required(),
 });
 
+const cast = (data) => schema.cast(data);
+
 export default {
+  cast,
 };

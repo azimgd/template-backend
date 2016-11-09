@@ -6,7 +6,7 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    category_id: {
+    categoryId: {
       type: Sequelize.INTEGER,
       references: {
           model: 'ProductCategories',
@@ -18,11 +18,11 @@ module.exports = {
     name: {
       type: Sequelize.STRING
     },
-    created_at: {
+    createdAt: {
       allowNull: false,
       type: Sequelize.DATE
     },
-    updated_at: {
+    updatedAt: {
       allowNull: false,
       type: Sequelize.DATE
     }
