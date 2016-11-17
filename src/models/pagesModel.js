@@ -15,6 +15,12 @@ export default ({ config, db }) => {
     content: {
       type: Sequelize.STRING,
     },
+    categoryId: {
+      type: Sequelize.INTEGER,
+    },
+    subCategoryId: {
+      type: Sequelize.INTEGER,
+    },
     createdAt: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.literal('NOW()'),

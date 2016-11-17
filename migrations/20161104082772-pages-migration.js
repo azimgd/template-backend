@@ -12,6 +12,24 @@ module.exports = {
     content: {
       type: Sequelize.TEXT('long')
     },
+    categoryId: {
+      type: Sequelize.INTEGER,
+      references: {
+          model: 'PageCategories',
+          key: 'id',
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    },
+    subCategoryId: {
+      type: Sequelize.INTEGER,
+      references: {
+          model: 'PageSubCategories',
+          key: 'id',
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE

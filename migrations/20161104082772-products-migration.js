@@ -10,7 +10,25 @@ module.exports = {
       type: Sequelize.STRING
     },
     description: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT('long')
+    },
+    categoryId: {
+      type: Sequelize.INTEGER,
+      references: {
+          model: 'PageCategories',
+          key: 'id',
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
+    },
+    subCategoryId: {
+      type: Sequelize.INTEGER,
+      references: {
+          model: 'PageSubCategories',
+          key: 'id',
+      },
+      onUpdate: 'cascade',
+      onDelete: 'cascade'
     },
     price: {
       type: Sequelize.FLOAT
