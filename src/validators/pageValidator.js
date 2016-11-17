@@ -7,8 +7,15 @@ const schema = yup.object().shape({
   content: yup.string().required(),
 });
 
+const indexQuerySchema = yup.object().shape({
+  categoryId: yup.number(),
+  subCategoryId: yup.number(),
+});
+
 const cast = (data) => schema.cast(data);
+const castIndexQuery = (data) => indexQuerySchema.cast(data);
 
 export default {
   cast,
+  castIndexQuery,
 };

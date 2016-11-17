@@ -33,7 +33,7 @@ export default ({ config, db }) => {
     freezeTableName: true,
   });
 
-  const findAll = () => Model.findAll();
+  const findAll = (params) => Model.findAll({ where: params });
   const findOne = (id) => Model.findOne({ where: { id } });
   const create = (page) => Model.create(page);
 

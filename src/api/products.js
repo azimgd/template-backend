@@ -10,8 +10,9 @@ export default ({ config, models: { products }, productValidator }) => resource(
 	},
 
 	/** GET / - List all entities */
-	index({ params }, res) {
-		products.queries.findAll().then(_ => res.json(_));
+	index({ params, query }, res) {
+		const modifiedQuery = productValidator.castIndexQuery(params);
+		products.queries.findAll(modifiedQuery).then(_ => res.json(_));
 	},
 
 	/** POST / - Create a new entity */
