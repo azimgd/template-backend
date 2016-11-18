@@ -18,6 +18,12 @@ export default ({ config, db }) => {
     price: {
       type: Sequelize.FLOAT,
     },
+    categoryId: {
+      type: Sequelize.INTEGER,
+    },
+    subCategoryId: {
+      type: Sequelize.INTEGER,
+    },
     createdAt: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.literal('NOW()'),

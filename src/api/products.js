@@ -11,7 +11,8 @@ export default ({ config, models: { products }, productValidator }) => resource(
 
 	/** GET / - List all entities */
 	index({ params, query }, res) {
-		const modifiedQuery = productValidator.castIndexQuery(params);
+		const modifiedQuery = productValidator.castIndexQuery(query);
+		console.log(query, modifiedQuery);
 		products.queries.findAll(modifiedQuery).then(_ => res.json(_));
 	},
 
