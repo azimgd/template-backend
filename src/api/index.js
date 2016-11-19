@@ -1,5 +1,6 @@
 import { version } from '../../package.json';
 import { Router } from 'express';
+import s3uploaderRouter from 'react-s3-uploader/s3router';
 
 import pages from './pages';
 import pageValidator from '../validators/pageValidator';
@@ -17,6 +18,12 @@ import productCategoryValidator from '../validators/productCategoryValidator';
 import productSubCategories from './productSubCategories';
 import productSubCategoryValidator from '../validators/productSubCategoryValidator';
 
+const s3routerConfig = {
+	bucket: 'shoptemplate',
+	region: 'eu-west-1',
+	signatureVersion: 'v4',
+	headers: {'Access-Control-Allow-Origin': '*'},
+};
 
 export default ({ config, models }) => {
 	let api = Router();
@@ -27,6 +34,7 @@ export default ({ config, models }) => {
 	api.use('/pageSubCategories', pageSubCategories({ config, models, pageSubCategoryValidator }));
 	api.use('/productCategories', productCategories({ config, models, productCategoryValidator }));
 	api.use('/productSubCategories', productSubCategories({ config, models, productSubCategoryValidator }));
+	api.use('/s3', s3uploaderRouter(s3routerConfig));
 
 	api.get('/', (req, res) => {
 		res.json({ version });
