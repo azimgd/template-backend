@@ -12,6 +12,9 @@ module.exports = {
     publicUrl: {
       type: Sequelize.STRING
     },
+    filename: {
+      type: Sequelize.STRING
+    },
     productId: {
       type: Sequelize.INTEGER,
       references: {

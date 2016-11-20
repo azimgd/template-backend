@@ -15,6 +15,9 @@ export default ({ config, db }) => {
     publicUrl: {
       type: Sequelize.STRING,
     },
+    filename: {
+      type: Sequelize.STRING,
+    },
     productId: {
       type: Sequelize.INTEGER,
     },
