@@ -17,6 +17,8 @@ import productCategories from './productCategories';
 import productCategoryValidator from '../validators/productCategoryValidator';
 import productSubCategories from './productSubCategories';
 import productSubCategoryValidator from '../validators/productSubCategoryValidator';
+import productImages from './productImages';
+import productImageValidator from '../validators/productImageValidator';
 
 const s3routerConfig = {
 	bucket: 'shoptemplate',
@@ -30,6 +32,7 @@ export default ({ config, models }) => {
 
 	api.use('/pages', pages({ config, models, pageValidator }));
 	api.use('/products', products({ config, models, productValidator }));
+	api.use('/productImages', productImages({ config, models, productImageValidator }));
 	api.use('/pageCategories', pageCategories({ config, models, pageCategoryValidator }));
 	api.use('/pageSubCategories', pageSubCategories({ config, models, pageSubCategoryValidator }));
 	api.use('/productCategories', productCategories({ config, models, productCategoryValidator }));

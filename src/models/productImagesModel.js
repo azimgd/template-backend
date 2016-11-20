@@ -4,24 +4,18 @@ export default ({ config, db }) => {
   /**
    * Model
    */
-  const Model = db.define('products', {
+  const Model = db.define('productImages', {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
     },
-    title: {
+    name: {
       type: Sequelize.STRING,
     },
-    description: {
+    publicUrl: {
       type: Sequelize.STRING,
     },
-    price: {
-      type: Sequelize.FLOAT,
-    },
-    categoryId: {
-      type: Sequelize.INTEGER,
-    },
-    subCategoryId: {
+    productId: {
       type: Sequelize.INTEGER,
     },
     uniqueProductId: {
@@ -40,9 +34,9 @@ export default ({ config, db }) => {
     timestamps: false,
   });
 
-  const findAll = (params) => Model.findAll({ where: params });
+  const findAll = () => Model.findAll();
   const findOne = (id) => Model.findOne({ where: { id } });
-  const create = (product) => Model.create(product);
+  const create = (image) => Model.create(image);
 
   return {
     Model,

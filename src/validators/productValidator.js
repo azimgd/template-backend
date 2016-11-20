@@ -10,6 +10,7 @@ const schema = yup.object().shape({
   category: yup.string().required(),
   subCategory: yup.string().required(),
   description: yup.string().required(),
+  uniqueProductId: yup.string().required(),
   price: yup.number().required(),
 });
 
