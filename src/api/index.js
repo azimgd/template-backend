@@ -17,6 +17,8 @@ import productCategories from './productCategories';
 import productCategoryValidator from '../validators/productCategoryValidator';
 import productSubCategories from './productSubCategories';
 import productSubCategoryValidator from '../validators/productSubCategoryValidator';
+import productOptions from './productOptions';
+import productOptionValidator from '../validators/productOptionValidator';
 import productImages from './productImages';
 import productImageValidator from '../validators/productImageValidator';
 
@@ -37,6 +39,7 @@ export default ({ config, models }) => {
 	api.use('/pageSubCategories', pageSubCategories({ config, models, pageSubCategoryValidator }));
 	api.use('/productCategories', productCategories({ config, models, productCategoryValidator }));
 	api.use('/productSubCategories', productSubCategories({ config, models, productSubCategoryValidator }));
+	api.use('/productOptions', productOptions({ config, models, productOptionValidator }));
 	api.use('/s3', s3uploaderRouter(s3routerConfig));
 
 	api.get('/', (req, res) => {
