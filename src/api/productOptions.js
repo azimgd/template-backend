@@ -11,13 +11,13 @@ export default ({ config, models: { productOptions }, productOptionValidator }) 
 
 	/** GET / - List all entities */
 	index({ params }, res) {
-		productOptions.queries.findAll().then(_ => res.json(_));
+		productOptions.queries.findAll().then(res.json.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		const modifiedBody = productOptionValidator.cast(body);
-		productOptions.queries.create(modifiedBody).then(_ => res.json(_));
+		productOptions.queries.create(modifiedBody).then(res.json.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */

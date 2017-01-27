@@ -11,13 +11,13 @@ export default ({ config, models: { productImages }, productImageValidator }) =>
 
 	/** GET / - List all entities */
 	index({ params }, res) {
-		productImages.queries.findAll().then(_ => res.json(_));
+		productImages.queries.findAll().then(res.json.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		const modifiedBody = productImageValidator.cast(body);
-		productImages.queries.create(modifiedBody).then(_ => res.json(_));
+		productImages.queries.create(modifiedBody).then(res.json.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */

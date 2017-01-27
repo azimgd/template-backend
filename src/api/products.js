@@ -12,13 +12,13 @@ export default ({ config, models: { products }, productValidator }) => resource(
 	/** GET / - List all entities */
 	index({ params, query }, res) {
 		const modifiedQuery = productValidator.castIndexQuery(query);
-		products.queries.findAll(modifiedQuery).then(_ => res.json(_));
+		products.queries.findAll(modifiedQuery).then(res.json.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		const modifiedBody = productValidator.cast(body);
-		products.queries.create(modifiedBody).then(_ => res.json(_));
+		products.queries.create(modifiedBody).then(res.json.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */

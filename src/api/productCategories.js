@@ -11,13 +11,13 @@ export default ({ config, models: { productCategories }, productCategoryValidato
 
 	/** GET / - List all entities */
 	index({ params }, res) {
-		productCategories.queries.findAll().then(_ => res.json(_));
+		productCategories.queries.findAll().then(res.json.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		const modifiedBody = productCategoryValidator.cast(body);
-		productCategories.queries.create(modifiedBody).then(_ => res.json(_));
+		productCategories.queries.create(modifiedBody).then(res.json.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */
