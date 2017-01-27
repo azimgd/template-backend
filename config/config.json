@@ -3,7 +3,9 @@
     "use_env_variable": "CLEARDB_DATABASE_URL"
   },
   "development": {
-    "use_env_variable": "CLEARDB_DATABASE_URL"
+    "use_env_variable": "CLEARDB_DATABASE_URL",
+    "url": "mysql://b1bc91ec4db80c:6fa56e78@eu-cdbr-west-01.cleardb.com/heroku_0b20b25ddc27c85",
+    "dialect": "mysql"
   },
   "test": {
     "use_env_variable": "CLEARDB_DATABASE_URL"

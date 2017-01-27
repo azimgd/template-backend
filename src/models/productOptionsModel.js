@@ -9,6 +9,9 @@ export default ({ config, db }) => {
       type: Sequelize.INTEGER,
       primaryKey: true,
     },
+    productId: {
+      type: Sequelize.INTEGER,
+    },
     key: {
       type: Sequelize.STRING,
     },
@@ -28,7 +31,7 @@ export default ({ config, db }) => {
     timestamps: false,
   });
 
-  const findAll = () => Model.findAll();
+  const findAll = ({ productId }) => Model.findAll({ where: { productId } });
   const findOne = (id) => Model.findOne({ where: { id } });
   const create = (option) => Model.create(option);
 

@@ -10,8 +10,8 @@ export default ({ config, models: { productOptions }, productOptionValidator }) 
 	},
 
 	/** GET / - List all entities */
-	index({ params }, res) {
-		productOptions.queries.findAll().then(res.json.bind(res));
+	index({ query, params }, res) {
+		productOptions.queries.findAll({ productId: query.productId }).then(res.json.bind(res));
 	},
 
 	/** POST / - Create a new entity */
