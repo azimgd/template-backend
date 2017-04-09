@@ -10,8 +10,8 @@ export default ({ config, models: { productImages }, productImageValidator }) =>
 	},
 
 	/** GET / - List all entities */
-	index({ params }, res) {
-		productImages.queries.findAll().then(res.json.bind(res));
+	index({ query, params }, res) {
+		productImages.queries.findAll({ productId: query.id }).then(res.json.bind(res));
 	},
 
 	/** POST / - Create a new entity */

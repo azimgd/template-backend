@@ -37,7 +37,7 @@ export default ({ config, db }) => {
     timestamps: false,
   });
 
-  const findAll = () => Model.findAll();
+  const findAll = ({ productId }) => Model.findAll({ where: { productId } });
   const findOne = (id) => Model.findOne({ where: { id } });
   const create = (image) => Model.create(image);
 
