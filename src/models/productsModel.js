@@ -40,16 +40,25 @@ export default ({ config, db }) => {
     timestamps: false,
   });
 
-  const findAll = (params) => Model.findAll({ where: params });
-  const findOne = (id) => Model.findOne({ where: { id } });
-  const create = (product) => Model.create(product);
+  const Associations = (models) => {
+    // Model.hasMany(models.productImages.Model);
+  };
 
-  return {
-    Model,
-    queries: {
+  const Queries = (models) => {
+    const findAll = (params) => Model.findAll({ where: params });
+    const findOne = (id) => Model.findOne({ where: { id } });
+    const create = (product) => Model.create(product);
+
+    return {
       findAll,
       findOne,
       create,
-    },
+    };
+  };
+
+  return {
+    Model,
+    Associations,
+    Queries,
   };
 };
