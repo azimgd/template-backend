@@ -4,24 +4,18 @@ export default ({ config, db }) => {
   /**
    * Model
    */
-  const Model = db.define('productImages', {
+  const Model = db.define('productOptions', {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
     },
-    name: {
-      type: Sequelize.STRING,
-    },
-    publicUrl: {
-      type: Sequelize.STRING,
-    },
-    filename: {
-      type: Sequelize.STRING,
-    },
     productId: {
       type: Sequelize.INTEGER,
     },
-    uniqueProductId: {
+    key: {
+      type: Sequelize.STRING,
+    },
+    value: {
       type: Sequelize.STRING,
     },
     createdAt: {
@@ -35,18 +29,13 @@ export default ({ config, db }) => {
   }, {
     freezeTableName: true,
     timestamps: false,
-    defaultScope: {
-      attributes: {
-        include: [[ db.fn('concat', process.env.AWS_BUCKET_URL, db.col('filename')), 'amazonUrl' ]],
-      },
-    },
   });
 
   /**
    * Associations
    */
   const Associations = (models) => {
-    Model.belongsTo(models.products.Model, { foreignKey: 'productId' });
+    Model.belongsTo(models.products.Model, { foreignKey: 'productId', as: 'option' });
   };
 
   /**
@@ -57,18 +46,14 @@ export default ({ config, db }) => {
 
     const findOne = (id) => Model.findOne({ where: { id } });
 
-    const create = (image) => models.products.Model.findOne({
-      where: { uniqueProductId: image.uniqueProductId },
-    })
-    .then(product => ({ ...image, ...{ productId: product.id } }))
-    .then(productImage => Model.create(productImage));
+    const create = (option) => Model.create(option);
 
     return {
       findAll,
       findOne,
       create,
     };
-  }
+  };
 
   return {
     Model,

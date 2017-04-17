@@ -40,16 +40,64 @@ export default ({ config, db }) => {
     timestamps: false,
   });
 
-  const findAll = (params) => Model.findAll({ where: params });
-  const findOne = (id) => Model.findOne({ where: { id } });
-  const create = (product) => Model.create(product);
+  /**
+   * Associations
+   */
+  const Associations = (models) => {
+    Model.hasMany(models.productImages.Model);
+    Model.hasMany(models.productOptions.Model, { as: 'options' });
+    Model.belongsTo(models.productCategories.Model, { foreignKey: 'categoryId', as: 'category' });
+    Model.belongsTo(models.productSubCategories.Model, { foreignKey: 'subCategoryId', as: 'subcategory' });
+  };
 
-  return {
-    Model,
-    queries: {
+  /**
+   * Queries
+   */
+  const Queries = (models) => {
+    const findAll = (params) => Model.findAll({
+      where: params,
+      include: [{
+        model: models.productImages.Model,
+      }, {
+        model: models.productOptions.Model,
+        as: 'options',
+      }, {
+        model: models.productCategories.Model,
+        as: 'category',
+      }, {
+        model: models.productSubCategories.Model,
+        as: 'subcategory',
+      }],
+    });
+
+    const findOne = (id) => Model.findOne({
+      where: { id },
+      include: [{
+        model: models.productImages.Model,
+      }, {
+        model: models.productOptions.Model,
+        as: 'options',
+      }, {
+        model: models.productCategories.Model,
+        as: 'category',
+      }, {
+        model: models.productSubCategories.Model,
+        as: 'subcategory',
+      }],
+    });
+
+    const create = (product) => Model.create(product);
+
+    return {
       findAll,
       findOne,
       create,
-    },
+    };
+  };
+
+  return {
+    Model,
+    Associations,
+    Queries,
   };
 };

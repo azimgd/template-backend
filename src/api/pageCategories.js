@@ -11,13 +11,13 @@ export default ({ config, models: { pageCategories }, pageCategoryValidator }) =
 
 	/** GET / - List all entities */
 	index({ params }, res) {
-		pageCategories.queries.findAll().then(_ => res.json(_));
+		pageCategories.queries.findAll().then(res.json.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		const modifiedBody = pageCategoryValidator.cast(body);
-		pageCategories.queries.create(modifiedBody).then(_ => res.json(_));
+		pageCategories.queries.create(modifiedBody).then(res.json.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */

@@ -26,18 +26,49 @@ export default ({ config, db }) => {
   }, {
     freezeTableName: true,
     timestamps: false,
+    defaultScope: {
+      attributes: {
+        include: [[ db.fn('count', db.col('filename')), 'productsCount' ]],
+      },
+    },
   });
 
-  const findAll = () => Model.findAll();
-  const findOne = (id) => Model.findOne({ where: { id } });
-  const create = (subCategory) => Model.create(subCategory);
+  /**
+   * Associations
+   */
+  const Associations = (models) => {
+    Model.belongsTo(models.productCategories.Model, { foreignKey: 'categoryId', as: 'category' });
+  };
 
-  return {
-    Model,
-    queries: {
+  /**
+   * Queries
+   */
+  const Queries = (models) => {
+    const findAll = () => Model.findAll({
+      include: [{
+        model: models.productCategories.Model,
+        as: 'category',
+      }],
+    });
+    const findOne = (id) => Model.findOne({
+      where: { id },
+      include: [{
+        model: models.productCategories.Model,
+        as: 'category',
+      }],
+    });
+    const create = (subCategory) => Model.create(subCategory);
+
+    return {
       findAll,
       findOne,
       create,
-    },
+    };
+  };
+
+  return {
+    Model,
+    Associations,
+    Queries,
   };
 };

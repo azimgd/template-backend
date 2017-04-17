@@ -11,13 +11,13 @@ export default ({ config, models: { productSubCategories }, productSubCategoryVa
 
 	/** GET / - List all entities */
 	index({ params }, res) {
-		productSubCategories.queries.findAll().then(_ => res.json(_));
+		productSubCategories.queries.findAll().then(res.json.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		const modifiedBody = productSubCategoryValidator.cast(body);
-		productSubCategories.queries.create(modifiedBody).then(_ => res.json(_));
+		productSubCategories.queries.create(modifiedBody).then(res.json.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */

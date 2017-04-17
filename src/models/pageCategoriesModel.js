@@ -25,16 +25,44 @@ export default ({ config, db }) => {
     timestamps: false,
   });
 
-  const findAll = () => Model.findAll();
-  const findOne = (id) => Model.findOne({ where: { id } });
-  const create = (category) => Model.create(category);
+  /**
+   * Associations
+   */
+  const Associations = (models) => {
+    Model.hasMany(models.pageSubCategories.Model, { foreignKey: 'categoryId', as: 'subcategories' });
+  };
 
-  return {
-    Model,
-    queries: {
+  /**
+   * Queries
+   */
+  const Queries = (models) => {
+    const findAll = () => Model.findAll({
+      include: [{
+        model: models.pageSubCategories.Model,
+        as: 'subcategories',
+      }],
+    });
+
+    const findOne = (id) => Model.findOne({
+      where: { id },
+      include: [{
+        model: models.pageSubCategories.Model,
+        as: 'subcategories',
+      }],
+    });
+
+    const create = (category) => Model.create(category);
+
+    return {
       findAll,
       findOne,
       create,
-    },
+    };
+  };
+
+  return {
+    Model,
+    Associations,
+    Queries,
   };
 };

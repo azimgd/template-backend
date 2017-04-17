@@ -11,13 +11,13 @@ export default ({ config, models: { pageSubCategories }, pageSubCategoryValidato
 
 	/** GET / - List all entities */
 	index({ params }, res) {
-		pageSubCategories.queries.findAll().then(_ => res.json(_));
+		pageSubCategories.queries.findAll().then(res.json.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		const modifiedBody = pageSubCategoryValidator.cast(body);
-		pageSubCategories.queries.create(modifiedBody).then(_ => res.json(_));
+		pageSubCategories.queries.create(modifiedBody).then(res.json.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */

@@ -28,16 +28,44 @@ export default ({ config, db }) => {
     timestamps: false,
   });
 
-  const findAll = () => Model.findAll();
-  const findOne = (id) => Model.findOne({ where: { id } });
-  const create = (subCategory) => Model.create(subCategory);
+  /**
+   * Associations
+   */
+  const Associations = (models) => {
+    Model.belongsTo(models.pageCategories.Model, { foreignKey: 'categoryId', as: 'category' });
+  };
 
-  return {
-    Model,
-    queries: {
+  /**
+   * Queries
+   */
+  const Queries = (models) => {
+    const findAll = () => Model.findAll({
+      include: [{
+        model: models.pageCategories.Model,
+        as: 'category',
+      }],
+    });
+
+    const findOne = (id) => Model.findOne({
+      where: { id },
+      include: [{
+        model: models.pageCategories.Model,
+        as: 'category',
+      }],
+    });
+
+    const create = (subCategory) => Model.create(subCategory);
+
+    return {
       findAll,
       findOne,
       create,
-    },
+    };
+  };
+
+  return {
+    Model,
+    Associations,
+    Queries,
   };
 };
