@@ -28,16 +28,32 @@ export default ({ config, db }) => {
     timestamps: false,
   });
 
-  const findAll = () => Model.findAll();
-  const findOne = (id) => Model.findOne({ where: { id } });
-  const create = (subCategory) => Model.create(subCategory);
+  /**
+   * Associations
+   */
+  const Associations = (models) => {
+  };
 
-  return {
-    Model,
-    queries: {
+  /**
+   * Queries
+   */
+  const Queries = (models) => {
+    const findAll = () => Model.findAll();
+
+    const findOne = (id) => Model.findOne({ where: { id } });
+
+    const create = (subCategory) => Model.create(subCategory);
+
+    return {
       findAll,
       findOne,
       create,
-    },
+    };
+  };
+
+  return {
+    Model,
+    Associations,
+    Queries,
   };
 };

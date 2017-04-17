@@ -37,20 +37,27 @@ export default ({ config, db }) => {
     timestamps: false,
   });
 
+  /**
+   * Associations
+   */
   const Associations = (models) => {
-    // Model.belongsTo(models.products.Model, { foreignKey: 'productId' });
+    Model.belongsTo(models.products.Model, { foreignKey: 'productId' });
   };
 
+  /**
+   * Queries
+   */
   const Queries = (models) => {
     const findAll = ({ productId }) => Model.findAll({ where: { productId } });
+
     const findOne = (id) => Model.findOne({ where: { id } });
-    const create = (image) => {
-      return models.products.Model.findOne({
-        where: { uniqueProductId: image.uniqueProductId },
-      })
-      .then(product => Object.assign({}, image, { productId: product.id }))
-      .then(productImage => Model.create(productImage));
-    };
+
+    const create = (image) => models.products.Model.findOne({
+      where: { uniqueProductId: image.uniqueProductId },
+    })
+    .then(product => ({ ...image, ...{ productId: product.id } }))
+    .then(productImage => Model.create(productImage));
+
     return {
       findAll,
       findOne,

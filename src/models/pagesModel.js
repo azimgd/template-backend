@@ -33,16 +33,34 @@ export default ({ config, db }) => {
     freezeTableName: true,
   });
 
-  const findAll = (params) => Model.findAll({ where: params });
-  const findOne = (id) => Model.findOne({ where: { id } });
-  const create = (page) => Model.create(page);
+  /**
+   * Associations
+   */
+  const Associations = (models) => {
+    Model.belongsTo(models.pageCategories.Model, { foreignKey: 'categoryId' });
+    Model.belongsTo(models.pageSubCategories.Model, { foreignKey: 'subCategoryId' });
+  };
 
-  return {
-    Model,
-    queries: {
+  /**
+   * Queries
+   */
+  const Queries = (models) => {
+    const findAll = (params) => Model.findAll({ where: params });
+
+    const findOne = (id) => Model.findOne({ where: { id } });
+
+    const create = (page) => Model.create(page);
+
+    return {
       findAll,
       findOne,
       create,
-    },
+    };
+  };
+
+  return {
+    Model,
+    Associations,
+    Queries,
   };
 };

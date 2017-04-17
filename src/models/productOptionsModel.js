@@ -31,16 +31,33 @@ export default ({ config, db }) => {
     timestamps: false,
   });
 
-  const findAll = ({ productId }) => Model.findAll({ where: { productId } });
-  const findOne = (id) => Model.findOne({ where: { id } });
-  const create = (option) => Model.create(option);
+  /**
+   * Associations
+   */
+  const Associations = (models) => {
+    Model.belongsTo(models.products.Model, { foreignKey: 'productId' });
+  };
 
-  return {
-    Model,
-    queries: {
+  /**
+   * Queries
+   */
+  const Queries = (models) => {
+    const findAll = ({ productId }) => Model.findAll({ where: { productId } });
+
+    const findOne = (id) => Model.findOne({ where: { id } });
+
+    const create = (option) => Model.create(option);
+
+    return {
       findAll,
       findOne,
       create,
-    },
+    };
+  };
+
+  return {
+    Model,
+    Associations,
+    Queries,
   };
 };
