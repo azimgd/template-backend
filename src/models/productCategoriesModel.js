@@ -29,7 +29,7 @@ export default ({ config, db }) => {
    * Associations
    */
   const Associations = (models) => {
-    Model.hasMany(models.productSubCategories.Model, { foreignKey: 'categoryId' });
+    Model.hasMany(models.productSubCategories.Model, { foreignKey: 'categoryId', as: 'subcategories' });
   };
 
   /**
@@ -39,6 +39,7 @@ export default ({ config, db }) => {
     const findAll = () => Model.findAll({
       include: [{
         model: models.productSubCategories.Model,
+        as: 'subcategories',
       }],
     });
 
@@ -46,6 +47,7 @@ export default ({ config, db }) => {
       where: { id },
       include: [{
         model: models.productSubCategories.Model,
+        as: 'subcategories',
       }],
     });
 

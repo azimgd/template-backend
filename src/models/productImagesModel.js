@@ -35,6 +35,11 @@ export default ({ config, db }) => {
   }, {
     freezeTableName: true,
     timestamps: false,
+    defaultScope: {
+      attributes: {
+        include: [[ db.fn('concat', process.env.AWS_BUCKET_URL, db.col('filename')), 'amazonUrl' ]],
+      },
+    },
   });
 
   /**
