@@ -35,7 +35,7 @@ export default ({ config, db }) => {
    * Associations
    */
   const Associations = (models) => {
-    Model.belongsTo(models.products.Model, { foreignKey: 'productId' });
+    Model.belongsTo(models.products.Model, { foreignKey: 'productId', as: 'option' });
   };
 
   /**

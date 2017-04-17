@@ -32,7 +32,7 @@ export default ({ config, db }) => {
    * Associations
    */
   const Associations = (models) => {
-    Model.belongsTo(models.pageCategories.Model, { foreignKey: 'categoryId' });
+    Model.belongsTo(models.pageCategories.Model, { foreignKey: 'categoryId', as: 'category' });
   };
 
   /**
@@ -42,6 +42,7 @@ export default ({ config, db }) => {
     const findAll = () => Model.findAll({
       include: [{
         model: models.pageCategories.Model,
+        as: 'category',
       }],
     });
 
@@ -49,6 +50,7 @@ export default ({ config, db }) => {
       where: { id },
       include: [{
         model: models.pageCategories.Model,
+        as: 'category',
       }],
     });
 

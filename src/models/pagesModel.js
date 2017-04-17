@@ -37,8 +37,8 @@ export default ({ config, db }) => {
    * Associations
    */
   const Associations = (models) => {
-    Model.belongsTo(models.pageCategories.Model, { foreignKey: 'categoryId' });
-    Model.belongsTo(models.pageSubCategories.Model, { foreignKey: 'subCategoryId' });
+    Model.belongsTo(models.pageCategories.Model, { foreignKey: 'categoryId', as: 'category' });
+    Model.belongsTo(models.pageSubCategories.Model, { foreignKey: 'subCategoryId', as: 'subcategory' });
   };
 
   /**

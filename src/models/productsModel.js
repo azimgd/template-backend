@@ -45,9 +45,9 @@ export default ({ config, db }) => {
    */
   const Associations = (models) => {
     Model.hasMany(models.productImages.Model);
-    Model.hasMany(models.productOptions.Model);
-    Model.belongsTo(models.productCategories.Model, { foreignKey: 'categoryId' });
-    Model.belongsTo(models.productSubCategories.Model, { foreignKey: 'subCategoryId' });
+    Model.hasMany(models.productOptions.Model, { as: 'options' });
+    Model.belongsTo(models.productCategories.Model, { foreignKey: 'categoryId', as: 'category' });
+    Model.belongsTo(models.productSubCategories.Model, { foreignKey: 'subCategoryId', as: 'subcategory' });
   };
 
   /**
@@ -60,10 +60,13 @@ export default ({ config, db }) => {
         model: models.productImages.Model,
       }, {
         model: models.productOptions.Model,
+        as: 'options',
       }, {
         model: models.productCategories.Model,
+        as: 'category',
       }, {
         model: models.productSubCategories.Model,
+        as: 'subcategory',
       }],
     });
 
@@ -73,10 +76,13 @@ export default ({ config, db }) => {
         model: models.productImages.Model,
       }, {
         model: models.productOptions.Model,
+        as: 'options',
       }, {
         model: models.productCategories.Model,
+        as: 'category',
       }, {
         model: models.productSubCategories.Model,
+        as: 'subcategory',
       }],
     });
 
