@@ -32,15 +32,25 @@ export default ({ config, db }) => {
    * Associations
    */
   const Associations = (models) => {
+    Model.belongsTo(models.pageCategories.Model, { foreignKey: 'categoryId' });
   };
 
   /**
    * Queries
    */
   const Queries = (models) => {
-    const findAll = () => Model.findAll();
+    const findAll = () => Model.findAll({
+      include: [{
+        model: models.pageCategories.Model,
+      }],
+    });
 
-    const findOne = (id) => Model.findOne({ where: { id } });
+    const findOne = (id) => Model.findOne({
+      where: { id },
+      include: [{
+        model: models.pageCategories.Model,
+      }],
+    });
 
     const create = (subCategory) => Model.create(subCategory);
 

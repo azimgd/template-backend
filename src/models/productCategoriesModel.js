@@ -29,15 +29,25 @@ export default ({ config, db }) => {
    * Associations
    */
   const Associations = (models) => {
+    Model.hasMany(models.productSubCategories.Model, { foreignKey: 'categoryId' });
   };
 
   /**
    * Queries
    */
   const Queries = (models) => {
-    const findAll = () => Model.findAll();
+    const findAll = () => Model.findAll({
+      include: [{
+        model: models.productSubCategories.Model,
+      }],
+    });
 
-    const findOne = (id) => Model.findOne({ where: { id } });
+    const findOne = (id) => Model.findOne({
+      where: { id },
+      include: [{
+        model: models.productSubCategories.Model,
+      }],
+    });
 
     const create = (category) => Model.create(category);
 
