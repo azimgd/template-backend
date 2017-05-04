@@ -1,6 +1,6 @@
 import resource from 'resource-router-middleware';
 
-export default ({ config, models: { pages }, pageValidator }) => resource({
+export default ({ base: { failRequest }, config, models: { pages }, pageValidator }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
 	id : 'page',
@@ -12,12 +12,16 @@ export default ({ config, models: { pages }, pageValidator }) => resource({
 	/** GET / - List all entities */
 	index({ params, query }, res) {
 		const modifiedQuery = pageValidator.castIndexQuery(query);
-		pages.queries.findAll(modifiedQuery).then(res.json.bind(res));
+		pages.queries.findAll(modifiedQuery)
+		.then(res.json.bind(res))
+		.catch(failRequest.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
-		pages.queries.create(body).then(res.json.bind(res));
+		pages.queries.create(body)
+		.then(res.json.bind(res))
+		.catch(failRequest.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */

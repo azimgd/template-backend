@@ -13,6 +13,7 @@ import pageCategoryValidator from '../validators/pageCategoryValidator';
 import pageSubCategories from './pageSubCategories';
 import pageSubCategoryValidator from '../validators/pageSubCategoryValidator';
 
+import base from './indexBase';
 import productCategories from './productCategories';
 import productCategoryValidator from '../validators/productCategoryValidator';
 import productSubCategories from './productSubCategories';
@@ -32,14 +33,14 @@ const s3routerConfig = {
 export default ({ config, models }) => {
 	let api = Router();
 
-	api.use('/pages', pages({ config, models, pageValidator }));
-	api.use('/products', products({ config, models, productValidator }));
-	api.use('/productImages', productImages({ config, models, productImageValidator }));
-	api.use('/pageCategories', pageCategories({ config, models, pageCategoryValidator }));
-	api.use('/pageSubCategories', pageSubCategories({ config, models, pageSubCategoryValidator }));
-	api.use('/productCategories', productCategories({ config, models, productCategoryValidator }));
-	api.use('/productSubCategories', productSubCategories({ config, models, productSubCategoryValidator }));
-	api.use('/productOptions', productOptions({ config, models, productOptionValidator }));
+	api.use('/pages', pages({ config, models, base, pageValidator }));
+	api.use('/products', products({ config, models, base, productValidator }));
+	api.use('/productImages', productImages({ config, models, base, productImageValidator }));
+	api.use('/pageCategories', pageCategories({ config, models, base, pageCategoryValidator }));
+	api.use('/pageSubCategories', pageSubCategories({ config, models, base, pageSubCategoryValidator }));
+	api.use('/productCategories', productCategories({ config, models, base, productCategoryValidator }));
+	api.use('/productSubCategories', productSubCategories({ config, models, base, productSubCategoryValidator }));
+	api.use('/productOptions', productOptions({ config, models, base, productOptionValidator }));
 	api.use('/s3', s3uploaderRouter(s3routerConfig));
 
 	api.get('/', (req, res) => {

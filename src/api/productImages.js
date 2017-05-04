@@ -1,6 +1,6 @@
 import resource from 'resource-router-middleware';
 
-export default ({ config, models: { productImages }, productImageValidator }) => resource({
+export default ({ base: { failRequest }, config, models: { productImages }, productImageValidator }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
 	id : 'productImage',
@@ -11,13 +11,17 @@ export default ({ config, models: { productImages }, productImageValidator }) =>
 
 	/** GET / - List all entities */
 	index({ query, params }, res) {
-		productImages.queries.findAll({ productId: query.id }).then(res.json.bind(res));
+		productImages.queries.findAll({ productId: query.id })
+		.then(res.json.bind(res))
+		.catch(failRequest.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		const modifiedBody = productImageValidator.cast(body);
-		productImages.queries.create(modifiedBody).then(res.json.bind(res));
+		productImages.queries.create(modifiedBody)
+		.then(res.json.bind(res))
+		.catch(failRequest.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */

@@ -1,6 +1,6 @@
 import resource from 'resource-router-middleware';
 
-export default ({ config, models: { pageSubCategories }, pageSubCategoryValidator }) => resource({
+export default ({ base: { failRequest }, config, models: { pageSubCategories }, pageSubCategoryValidator }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
 	id : 'pageSubCategory',
@@ -11,13 +11,17 @@ export default ({ config, models: { pageSubCategories }, pageSubCategoryValidato
 
 	/** GET / - List all entities */
 	index({ params }, res) {
-		pageSubCategories.queries.findAll().then(res.json.bind(res));
+		pageSubCategories.queries.findAll()
+		.then(res.json.bind(res))
+		.catch(failRequest.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		const modifiedBody = pageSubCategoryValidator.cast(body);
-		pageSubCategories.queries.create(modifiedBody).then(res.json.bind(res));
+		pageSubCategories.queries.create(modifiedBody)
+		.then(res.json.bind(res))
+		.catch(failRequest.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */

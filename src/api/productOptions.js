@@ -1,6 +1,6 @@
 import resource from 'resource-router-middleware';
 
-export default ({ config, models: { productOptions }, productOptionValidator }) => resource({
+export default ({ base: { failRequest }, config, models: { productOptions }, productOptionValidator }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
 	id : 'productOption',
@@ -11,13 +11,17 @@ export default ({ config, models: { productOptions }, productOptionValidator }) 
 
 	/** GET / - List all entities */
 	index({ query, params }, res) {
-		productOptions.queries.findAll({ productId: query.id }).then(res.json.bind(res));
+		productOptions.queries.findAll({ productId: query.id })
+		.then(res.json.bind(res))
+		.catch(failRequest.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		const modifiedBody = productOptionValidator.cast(body);
-		productOptions.queries.create(modifiedBody).then(res.json.bind(res));
+		productOptions.queries.create(modifiedBody)
+		.then(res.json.bind(res))
+		.catch(failRequest.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */
