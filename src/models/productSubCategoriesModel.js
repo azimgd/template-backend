@@ -26,11 +26,6 @@ export default ({ config, db }) => {
   }, {
     freezeTableName: true,
     timestamps: false,
-    defaultScope: {
-      attributes: {
-        include: [[ db.fn('count', db.col('filename')), 'productsCount' ]],
-      },
-    },
   });
 
   /**
