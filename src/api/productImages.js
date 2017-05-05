@@ -6,7 +6,9 @@ export default ({ base: { failRequest }, config, models: { productImages }, prod
 	id : 'productImage',
 
 	load(req, id, callback) {
-		productImages.queries.findOne(id).then(_ => callback(null, _));
+		productImages.queries.findOne(id)
+		.then(_ => callback(null, _))
+		.catch(callback);
 	},
 
 	/** GET / - List all entities */

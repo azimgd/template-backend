@@ -6,7 +6,9 @@ export default ({ base: { failRequest }, config, models: { pageSubCategories }, 
 	id : 'pageSubCategory',
 
 	load(req, id, callback) {
-		pageSubCategories.queries.findOne(id).then(_ => callback(null, _));
+		pageSubCategories.queries.findOne(id)
+		.then(_ => callback(null, _))
+		.catch(callback);
 	},
 
 	/** GET / - List all entities */

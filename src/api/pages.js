@@ -6,7 +6,9 @@ export default ({ base: { failRequest }, config, models: { pages }, pageValidato
 	id : 'page',
 
 	load(req, id, callback) {
-		pages.queries.findOne(id).then(_ => callback(null, _));
+		pages.queries.findOne(id)
+		.then(_ => callback(null, _))
+		.catch(callback);
 	},
 
 	/** GET / - List all entities */
