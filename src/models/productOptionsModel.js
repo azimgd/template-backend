@@ -48,10 +48,13 @@ export default ({ config, db }) => {
 
     const create = (option) => Model.create(option);
 
+    const findAllDistinct = () => Model.findAll({ attributes: [[Sequelize.literal('DISTINCT `value`'), 'value'], 'key'], where: { key: { $notLike: '[[%]]' } } });
+
     return {
       findAll,
       findOne,
       create,
+      findAllDistinct,
     };
   };
 

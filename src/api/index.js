@@ -40,7 +40,11 @@ export default ({ config, models }) => {
 	api.use('/pageSubCategories', pageSubCategories({ config, models, base, pageSubCategoryValidator }));
 	api.use('/productCategories', productCategories({ config, models, base, productCategoryValidator }));
 	api.use('/productSubCategories', productSubCategories({ config, models, base, productSubCategoryValidator }));
-	api.use('/productOptions', productOptions({ config, models, base, productOptionValidator }));
+
+	const ProductOptionsController = productOptions({ config, models, base, productOptionValidator });
+	api.get('/productOptions/distinct', ProductOptionsController.routes.indexDistinct);
+	api.use('/productOptions', ProductOptionsController.resource);
+
 	api.use('/s3', s3uploaderRouter(s3routerConfig));
 
 	api.get('/', (req, res) => {
