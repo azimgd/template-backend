@@ -54,13 +54,14 @@ export default ({ config, db }) => {
    * Queries
    */
   const Queries = (models) => {
-    const findAll = (params) => Model.findAll({
+    const findAll = ({ options, ...params }) => Model.findAll({
       where: params,
       include: [{
         model: models.productImages.Model,
       }, {
         model: models.productOptions.Model,
         as: 'options',
+        where: options ? { value: { $in: options } } : {},
       }, {
         model: models.productCategories.Model,
         as: 'category',

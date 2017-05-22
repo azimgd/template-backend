@@ -34,7 +34,7 @@
     "mysql": "^2.12.0",
     "react-s3-uploader": "^4.1.1",
     "resource-router-middleware": "^0.6.0",
-    "sequelize": "^3.24.7",
+    "sequelize": "3.30.4",
     "winston": "^2.3.1",
     "yup": "^0.21.2"
   },

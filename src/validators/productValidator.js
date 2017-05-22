@@ -17,6 +17,7 @@ const schema = yup.object().shape({
 const indexQuerySchema = yup.object().shape({
   categoryId: yup.number(),
   subCategoryId: yup.number(),
+  options: yup.array().of(yup.string()),
 });
 
 const cast = (data) => schema.cast(data);
