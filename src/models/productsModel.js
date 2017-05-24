@@ -54,8 +54,14 @@ export default ({ config, db }) => {
    * Queries
    */
   const Queries = (models) => {
-    const findAll = ({ options, ...params }) => Model.findAll({
-      where: params,
+    const findAll = ({ options, search = "", ...params }) => Model.findAll({
+      where: {
+        $or: [
+          { title: { $like: `%${search}%` } },
+          { description: { $like: `%${search}%` } },
+        ],
+        ...params,
+      },
       include: [{
         model: models.productImages.Model,
       }, {
