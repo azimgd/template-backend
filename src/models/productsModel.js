@@ -54,7 +54,7 @@ export default ({ config, db }) => {
    * Queries
    */
   const Queries = (models) => {
-    const findAll = ({ options, search = "", ...params }) => Model.findAll({
+    const findAll = ({ options = [], search = "", ...params }) => Model.findAll({
       where: {
         $or: [
           { title: { $like: `%${search}%` } },
@@ -67,7 +67,7 @@ export default ({ config, db }) => {
       }, {
         model: models.productOptions.Model,
         as: 'options',
-        where: options ? { value: { $in: options } } : {},
+        where: { value: { $or: options } },
       }, {
         model: models.productCategories.Model,
         as: 'category',
