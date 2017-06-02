@@ -19,6 +19,9 @@ export default ({ config, db }) => {
     price: {
       type: Sequelize.FLOAT,
     },
+    currency: {
+      type: Sequelize.STRING,
+    },
     categoryId: {
       type: Sequelize.INTEGER,
     },
