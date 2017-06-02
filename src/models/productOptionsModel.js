@@ -45,7 +45,7 @@ export default ({ config, db }) => {
   const Queries = (models) => {
     const findAll = ({ productId }) => Model.findAll({ where: { productId } });
 
-    const findOne = (where) => Model.findOne({ where });
+    const findOne = ({ where }) => Model.findOne({ where });
 
     const create = (option) => Model.create(option);
 

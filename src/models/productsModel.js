@@ -85,7 +85,7 @@ export default ({ config, db }) => {
       }],
     });
 
-    const findOne = (where) => Model.findOne({
+    const findOne = ({ where }) => Model.findOne({
       where,
       include: [{
         model: models.productImages.Model,
@@ -93,7 +93,7 @@ export default ({ config, db }) => {
         model: models.productOptions.Model,
         as: 'options',
       }, {
-        model: models.productOptions.Model,
+        model: models.productFeatures.Model,
         as: 'features',
       }, {
         model: models.productCategories.Model,

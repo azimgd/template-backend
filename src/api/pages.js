@@ -1,6 +1,7 @@
 import resource from 'resource-router-middleware';
+import flow from 'lodash/flow';
 
-export default ({ base: { failRequest }, config, models: { pages }, pageValidator }) => resource({
+export default ({ base, config, models: { pages }, pageValidator }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
 	id : 'page',
@@ -8,7 +9,7 @@ export default ({ base: { failRequest }, config, models: { pages }, pageValidato
 	load(req, id, callback) {
 		pages.queries.findOne({ where: { id } })
 		.then(_ => callback(null, _))
-		.catch(callback);
+		.catch(base.logRequest);
 	},
 
 	/** GET / - List all entities */
@@ -16,14 +17,14 @@ export default ({ base: { failRequest }, config, models: { pages }, pageValidato
 		const modifiedQuery = pageValidator.castIndexQuery(query);
 		pages.queries.findAll(modifiedQuery)
 		.then(res.json.bind(res))
-		.catch(failRequest.bind(res));
+		.catch(base.failRequest.bind(res));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		pages.queries.create(body)
 		.then(res.json.bind(res))
-		.catch(failRequest.bind(res));
+		.catch(base.failRequest.bind(res));
 	},
 
 	/** GET /:id - Return a given entity */

@@ -1,6 +1,7 @@
 import resource from 'resource-router-middleware';
+import flow from 'lodash/flow';
 
-export default ({ base: { failRequest }, config, models: { productOptions }, productOptionValidator }) => ({
+export default ({ base, config, models: { productOptions }, productOptionValidator }) => ({
 	resource: resource({
 		/** Property name to store preloaded entity on `request`. */
 		id : 'productOption',
@@ -8,14 +9,14 @@ export default ({ base: { failRequest }, config, models: { productOptions }, pro
 		load(req, id, callback) {
 			productOptions.queries.findOne({ where: { id } })
 			.then(_ => callback(null, _))
-			.catch(callback);
+			.catch(base.logRequest);
 		},
 
 		/** GET / - List all entities */
 		index({ query, params }, res) {
 			productOptions.queries.findAll({ productId: query.id })
 			.then(res.json.bind(res))
-			.catch(failRequest.bind(res));
+			.catch(base.failRequest.bind(res));
 		},
 
 		/** POST / - Create a new entity */
@@ -23,7 +24,7 @@ export default ({ base: { failRequest }, config, models: { productOptions }, pro
 			const modifiedBody = productOptionValidator.cast(body);
 			productOptions.queries.create(modifiedBody)
 			.then(res.json.bind(res))
-			.catch(failRequest.bind(res));
+			.catch(base.failRequest.bind(res));
 		},
 
 		/** GET /:id - Return a given entity */
@@ -52,7 +53,7 @@ export default ({ base: { failRequest }, config, models: { productOptions }, pro
 		indexDistinct({ query, params }, res) {
 			productOptions.queries.findAllDistinct({ productId: query.id })
 			.then(res.json.bind(res))
-			.catch(failRequest.bind(res));
+			.catch(base.failRequest.bind(res));
 		},
 	}),
 });

@@ -44,7 +44,7 @@ export default ({ config, db }) => {
       }],
     });
 
-    const findOne = (where) => Model.findOne({
+    const findOne = ({ where }) => Model.findOne({
       where,
       include: [{
         model: models.pageSubCategories.Model,

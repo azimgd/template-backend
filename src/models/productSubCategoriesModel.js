@@ -46,7 +46,7 @@ export default ({ config, db }) => {
         as: 'category',
       }],
     });
-    const findOne = (where) => Model.findOne({
+    const findOne = ({ where }) => Model.findOne({
       where,
       include: [{
         model: models.productCategories.Model,

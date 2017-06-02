@@ -48,7 +48,7 @@ export default ({ config, db }) => {
   const Queries = (models) => {
     const findAll = (params) => Model.findAll({ where: params });
 
-    const findOne = (where) => Model.findOne({ where });
+    const findOne = ({ where }) => Model.findOne({ where });
 
     const create = (page) => Model.create(page);
 
