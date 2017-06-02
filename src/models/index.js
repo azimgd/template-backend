@@ -6,6 +6,7 @@ import productImagesModel from './productImagesModel';
 import productCategoriesModel from './productCategoriesModel';
 import productSubCategoriesModel from './productSubCategoriesModel';
 import productOptionsModel from './productOptionsModel';
+import productFeaturesModel from './productFeaturesModel';
 import productsModel from './productsModel';
 
 export default ({ config, db }) => {
@@ -18,6 +19,7 @@ export default ({ config, db }) => {
 		productImages: productImagesModel({ config, db }),
 		productSubCategories: productSubCategoriesModel({ config, db }),
 		productOptions: productOptionsModel({ config, db }),
+		productFeatures: productFeaturesModel({ config, db }),
 		products: productsModel({ config, db }),
 	};
 

@@ -8,6 +8,7 @@ export default ({ config, db }) => {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     title: {
       type: Sequelize.STRING,
@@ -47,7 +48,7 @@ export default ({ config, db }) => {
   const Queries = (models) => {
     const findAll = (params) => Model.findAll({ where: params });
 
-    const findOne = (id) => Model.findOne({ where: { id } });
+    const findOne = (where) => Model.findOne({ where });
 
     const create = (page) => Model.create(page);
 

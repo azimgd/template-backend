@@ -6,7 +6,7 @@ export default ({ base: { failRequest }, config, models: { products }, productVa
 	id : 'product',
 
 	load(req, id, callback) {
-		products.queries.findOne(id)
+		products.queries.findOne({ where: { id } })
 		.then(_ => callback(null, _))
 		.catch(callback);
 	},

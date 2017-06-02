@@ -8,6 +8,7 @@ export default ({ config, db }) => {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     categoryId: {
       type: Sequelize.INTEGER,
@@ -45,8 +46,8 @@ export default ({ config, db }) => {
         as: 'category',
       }],
     });
-    const findOne = (id) => Model.findOne({
-      where: { id },
+    const findOne = (where) => Model.findOne({
+      where,
       include: [{
         model: models.productCategories.Model,
         as: 'category',

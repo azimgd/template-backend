@@ -4,13 +4,22 @@ export default ({ config, db }) => {
   /**
    * Model
    */
-  const Model = db.define('productCategories', {
+  const Model = db.define('productFeatures', {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    productId: {
+      type: Sequelize.INTEGER,
+    },
+    key: {
+      type: Sequelize.STRING,
+    },
+    value: {
+      type: Sequelize.STRING,
+    },
+    group: {
       type: Sequelize.STRING,
     },
     createdAt: {
@@ -30,34 +39,26 @@ export default ({ config, db }) => {
    * Associations
    */
   const Associations = (models) => {
-    Model.hasMany(models.productSubCategories.Model, { foreignKey: 'categoryId', as: 'subcategories' });
+    Model.belongsTo(models.products.Model, { foreignKey: 'productId', as: 'feature' });
   };
 
   /**
    * Queries
    */
   const Queries = (models) => {
-    const findAll = () => Model.findAll({
-      include: [{
-        model: models.productSubCategories.Model,
-        as: 'subcategories',
-      }],
-    });
+    const findAll = ({ productId }) => Model.findAll({ where: { productId } });
 
-    const findOne = (where) => Model.findOne({
-      where,
-      include: [{
-        model: models.productSubCategories.Model,
-        as: 'subcategories',
-      }],
-    });
+    const findOne = (where) => Model.findOne({ where });
 
-    const create = (category) => Model.create(category);
+    const create = (feature) => Model.create(feature);
+
+    const findAllDistinct = () => Model.findAll({ attributes: [[Sequelize.literal('DISTINCT `value`'), 'value'], 'key'], where: { key: { $notLike: '[[%]]' } } });
 
     return {
       findAll,
       findOne,
       create,
+      findAllDistinct,
     };
   };
 

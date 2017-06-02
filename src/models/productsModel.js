@@ -8,6 +8,7 @@ export default ({ config, db }) => {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     title: {
       type: Sequelize.STRING,
@@ -46,6 +47,7 @@ export default ({ config, db }) => {
   const Associations = (models) => {
     Model.hasMany(models.productImages.Model);
     Model.hasMany(models.productOptions.Model, { as: 'options' });
+    Model.hasMany(models.productFeatures.Model, { as: 'features' });
     Model.belongsTo(models.productCategories.Model, { foreignKey: 'categoryId', as: 'category' });
     Model.belongsTo(models.productSubCategories.Model, { foreignKey: 'subCategoryId', as: 'subcategory' });
   };
@@ -69,6 +71,9 @@ export default ({ config, db }) => {
         as: 'options',
         where: { value: { $or: options } },
       }, {
+        model: models.productFeatures.Model,
+        as: 'features',
+      }, {
         model: models.productCategories.Model,
         as: 'category',
       }, {
@@ -77,13 +82,16 @@ export default ({ config, db }) => {
       }],
     });
 
-    const findOne = (id) => Model.findOne({
-      where: { id },
+    const findOne = (where) => Model.findOne({
+      where,
       include: [{
         model: models.productImages.Model,
       }, {
         model: models.productOptions.Model,
         as: 'options',
+      }, {
+        model: models.productOptions.Model,
+        as: 'features',
       }, {
         model: models.productCategories.Model,
         as: 'category',

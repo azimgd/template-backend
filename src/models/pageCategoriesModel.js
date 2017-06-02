@@ -8,6 +8,7 @@ export default ({ config, db }) => {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: Sequelize.STRING,
@@ -43,8 +44,8 @@ export default ({ config, db }) => {
       }],
     });
 
-    const findOne = (id) => Model.findOne({
-      where: { id },
+    const findOne = (where) => Model.findOne({
+      where,
       include: [{
         model: models.pageSubCategories.Model,
         as: 'subcategories',
