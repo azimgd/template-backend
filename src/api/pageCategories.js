@@ -9,7 +9,7 @@ export default ({ base, config, models: { pageCategories }, pageCategoryValidato
   load(req, id, callback) {
     pageCategories.queries.findOne({ where: { id } })
     .then(_ => callback(null, _))
-    .catch(base.logRequest);
+    .catch(flow([base.logError, callback]));
   },
 
   /** GET / - List all entities */

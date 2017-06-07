@@ -9,7 +9,7 @@ export default ({ base, config, models: { pages }, pageValidator }) => resource(
   load(req, id, callback) {
     pages.queries.findOne({ where: { id } })
     .then(_ => callback(null, _))
-    .catch(base.logRequest);
+    .catch(flow([base.logError, callback]));
   },
 
   /** GET / - List all entities */

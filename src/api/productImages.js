@@ -9,7 +9,7 @@ export default ({ base, config, models: { productImages }, productImageValidator
   load(req, id, callback) {
     productImages.queries.findOne({ where: { id } })
     .then(_ => callback(null, _))
-    .catch(base.logRequest);
+    .catch(flow([base.logError, callback]));
   },
 
   /** GET / - List all entities */
