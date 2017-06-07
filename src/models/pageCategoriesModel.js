@@ -37,11 +37,15 @@ export default ({ config, db }) => {
    * Queries
    */
   const Queries = (models) => {
-    const findAll = () => Model.findAll({
+    const findAll = (
+      { offset = 0, limit = 20 },
+    ) => Model.findAll({
       include: [{
         model: models.pageSubCategories.Model,
         as: 'subcategories',
       }],
+      offset,
+      limit,
     });
 
     const findOne = ({ where }) => Model.findOne({

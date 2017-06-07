@@ -7,8 +7,15 @@ const schema = yup.object().shape({
   publicUrl: yup.string().required(),
 });
 
-const cast = (data) => schema.cast(data);
+const indexQuerySchema = yup.object().shape({
+  limit: yup.number(),
+  offset: yup.number(),
+});
+
+const cast = data => schema.cast(data);
 
 export default {
   cast,
+  schema,
+  indexQuerySchema,
 };

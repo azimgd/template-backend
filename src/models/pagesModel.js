@@ -46,7 +46,13 @@ export default ({ config, db }) => {
    * Queries
    */
   const Queries = (models) => {
-    const findAll = params => Model.findAll({ where: params });
+    const findAll = (
+      { offset = 0, limit = 20, ...params },
+    ) => Model.findAll({
+      where: params,
+      offset,
+      limit,
+    });
 
     const findOne = ({ where }) => Model.findOne({ where });
 

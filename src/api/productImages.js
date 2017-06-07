@@ -13,8 +13,9 @@ export default ({ base, config, models: { productImages }, productImageValidator
   },
 
   /** GET / - List all entities */
-  index({ query, params }, res) {
-    productImages.queries.findAll({ productId: query.id })
+  index({ params, query }, res) {
+    const modifiedQuery = productImageValidator.castIndexQuery({ ...query, productId: query.id });
+    productImages.queries.findAll(modifiedQuery)
     .then(res.json.bind(res))
     .catch(base.failRequest.bind(res));
   },

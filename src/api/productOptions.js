@@ -13,8 +13,9 @@ export default ({ base, config, models: { productOptions }, productOptionValidat
     },
 
     /** GET / - List all entities */
-    index({ query, params }, res) {
-      productOptions.queries.findAll({ productId: query.id })
+    index({ params, query }, res) {
+      const modifiedQuery = productOptionValidator.castIndexQuery({ ...query, productId: query.id });
+      productOptions.queries.findAll(modifiedQuery)
       .then(res.json.bind(res))
       .catch(base.failRequest.bind(res));
     },

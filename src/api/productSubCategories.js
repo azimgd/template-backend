@@ -13,8 +13,9 @@ export default ({ base, config, models: { productSubCategories }, productSubCate
   },
 
   /** GET / - List all entities */
-  index({ params }, res) {
-    productSubCategories.queries.findAll()
+  index({ params, query }, res) {
+    const modifiedQuery = productSubCategoryValidator.castIndexQuery(query);
+    productSubCategories.queries.findAll(modifiedQuery)
     .then(res.json.bind(res))
     .catch(base.failRequest.bind(res));
   },

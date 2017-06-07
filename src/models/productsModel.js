@@ -59,7 +59,9 @@ export default ({ config, db }) => {
    * Queries
    */
   const Queries = (models) => {
-    const findAll = ({ options = [], search = '', ...params }) => Model.findAll({
+    const findAll = (
+      { options = [], search = '', offset = 0, limit = 20, ...params },
+    ) => Model.findAll({
       where: {
         $or: [
           { title: { $like: `%${search}%` } },
@@ -83,6 +85,8 @@ export default ({ config, db }) => {
         model: models.productSubCategories.Model,
         as: 'subcategory',
       }],
+      offset,
+      limit,
     });
 
     const findOne = ({ where }) => Model.findOne({

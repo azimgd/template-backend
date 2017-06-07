@@ -40,12 +40,17 @@ export default ({ config, db }) => {
    * Queries
    */
   const Queries = (models) => {
-    const findAll = () => Model.findAll({
+    const findAll = (
+      { offset = 0, limit = 20 },
+    ) => Model.findAll({
       include: [{
         model: models.productCategories.Model,
         as: 'category',
       }],
+      offset,
+      limit,
     });
+
     const findOne = ({ where }) => Model.findOne({
       where,
       include: [{
@@ -53,6 +58,7 @@ export default ({ config, db }) => {
         as: 'category',
       }],
     });
+
     const create = subCategory => Model.create(subCategory);
 
     return {

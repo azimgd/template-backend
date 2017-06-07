@@ -10,12 +10,16 @@ const schema = yup.object().shape({
 const indexQuerySchema = yup.object().shape({
   categoryId: yup.number(),
   subCategoryId: yup.number(),
+  limit: yup.number(),
+  offset: yup.number(),
 });
 
-const cast = (data) => schema.cast(data);
-const castIndexQuery = (data) => indexQuerySchema.cast(data);
+const cast = data => schema.cast(data);
+const castIndexQuery = data => indexQuerySchema.cast(data);
 
 export default {
   cast,
   castIndexQuery,
+  schema,
+  indexQuerySchema,
 };

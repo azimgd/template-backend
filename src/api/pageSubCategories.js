@@ -13,8 +13,9 @@ export default ({ base, config, models: { pageSubCategories }, pageSubCategoryVa
   },
 
   /** GET / - List all entities */
-  index({ params }, res) {
-    pageSubCategories.queries.findAll()
+  index({ params, query }, res) {
+    const modifiedQuery = pageSubCategoryValidator.castIndexQuery(query);
+    pageSubCategories.queries.findAll(modifiedQuery)
     .then(res.json.bind(res))
     .catch(base.failRequest.bind(res));
   },
