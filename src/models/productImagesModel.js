@@ -38,7 +38,7 @@ export default ({ config, db }) => {
     timestamps: false,
     defaultScope: {
       attributes: {
-        include: [[ db.fn('concat', process.env.AWS_BUCKET_URL, db.col('filename')), 'amazonUrl' ]],
+        include: [[db.fn('concat', process.env.AWS_BUCKET_URL, db.col('filename')), 'amazonUrl']],
       },
     },
   });
@@ -58,7 +58,7 @@ export default ({ config, db }) => {
 
     const findOne = ({ where }) => Model.findOne({ where });
 
-    const create = (image) => models.products.Model.findOne({
+    const create = image => models.products.Model.findOne({
       where: { uniqueProductId: image.uniqueProductId },
     })
     .then(product => ({ ...image, ...{ productId: product.id } }))
@@ -69,7 +69,7 @@ export default ({ config, db }) => {
       findOne,
       create,
     };
-  }
+  };
 
   return {
     Model,

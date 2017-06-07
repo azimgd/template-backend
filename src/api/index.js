@@ -1,6 +1,6 @@
-import { version } from '../../package.json';
-import { Router } from 'express';
 import s3uploaderRouter from 'react-s3-uploader/s3router';
+import { Router } from 'express';
+import { version } from '../../package.json';
 
 import pages from './pages';
 import pageValidator from '../validators/pageValidator';
@@ -24,32 +24,32 @@ import productImages from './productImages';
 import productImageValidator from '../validators/productImageValidator';
 
 const s3routerConfig = {
-	bucket: 'shoptemplate',
-	region: 'eu-west-1',
-	signatureVersion: 'v4',
-	headers: {'Access-Control-Allow-Origin': '*'},
+  bucket: 'shoptemplate',
+  region: 'eu-west-1',
+  signatureVersion: 'v4',
+  headers: { 'Access-Control-Allow-Origin': '*' },
 };
 
 export default ({ config, models }) => {
-	let api = Router();
+  const api = Router();
 
-	api.use('/pages', pages({ config, models, base, pageValidator }));
-	api.use('/products', products({ config, models, base, productValidator }));
-	api.use('/productImages', productImages({ config, models, base, productImageValidator }));
-	api.use('/pageCategories', pageCategories({ config, models, base, pageCategoryValidator }));
-	api.use('/pageSubCategories', pageSubCategories({ config, models, base, pageSubCategoryValidator }));
-	api.use('/productCategories', productCategories({ config, models, base, productCategoryValidator }));
-	api.use('/productSubCategories', productSubCategories({ config, models, base, productSubCategoryValidator }));
+  api.use('/pages', pages({ config, models, base, pageValidator }));
+  api.use('/products', products({ config, models, base, productValidator }));
+  api.use('/productImages', productImages({ config, models, base, productImageValidator }));
+  api.use('/pageCategories', pageCategories({ config, models, base, pageCategoryValidator }));
+  api.use('/pageSubCategories', pageSubCategories({ config, models, base, pageSubCategoryValidator }));
+  api.use('/productCategories', productCategories({ config, models, base, productCategoryValidator }));
+  api.use('/productSubCategories', productSubCategories({ config, models, base, productSubCategoryValidator }));
 
-	const ProductOptionsController = productOptions({ config, models, base, productOptionValidator });
-	api.get('/productOptions/distinct', ProductOptionsController.routes.indexDistinct);
-	api.use('/productOptions', ProductOptionsController.resource);
+  const ProductOptionsController = productOptions({ config, models, base, productOptionValidator });
+  api.get('/productOptions/distinct', ProductOptionsController.routes.indexDistinct);
+  api.use('/productOptions', ProductOptionsController.resource);
 
-	api.use('/s3', s3uploaderRouter(s3routerConfig));
+  api.use('/s3', s3uploaderRouter(s3routerConfig));
 
-	api.get('/', (req, res) => {
-		res.json({ version });
-	});
+  api.get('/', (req, res) => {
+    res.json({ version });
+  });
 
-	return api;
-}
+  return api;
+};

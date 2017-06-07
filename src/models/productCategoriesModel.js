@@ -52,7 +52,7 @@ export default ({ config, db }) => {
       }],
     });
 
-    const create = (category) => Model.create(category);
+    const create = category => Model.create(category);
 
     return {
       findAll,

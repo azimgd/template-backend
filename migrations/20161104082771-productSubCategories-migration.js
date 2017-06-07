@@ -1,32 +1,32 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('ProductSubCategories', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('productSubCategories', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     categoryId: {
       type: Sequelize.INTEGER,
       references: {
-          model: 'ProductCategories',
-          key: 'id',
+        model: 'ProductCategories',
+        key: 'id',
       },
       onUpdate: 'cascade',
-      onDelete: 'cascade'
+      onDelete: 'cascade',
     },
     name: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     createdAt: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
     },
     updatedAt: {
       allowNull: false,
-      type: Sequelize.DATE
-    }
+      type: Sequelize.DATE,
+    },
   }),
 
-  down: (queryInterface) => queryInterface.dropTable('ProductSubCategories'),
+  down: queryInterface => queryInterface.dropTable('productSubCategories'),
 };

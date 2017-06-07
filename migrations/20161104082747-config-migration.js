@@ -1,26 +1,26 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Config', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('config', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     key: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     value: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     createdAt: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
     },
     updatedAt: {
       allowNull: false,
-      type: Sequelize.DATE
-    }
+      type: Sequelize.DATE,
+    },
   }),
 
-  down: (queryInterface) => queryInterface.dropTable('Config'),
+  down: queryInterface => queryInterface.dropTable('config'),
 };

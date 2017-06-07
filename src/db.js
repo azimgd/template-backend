@@ -1,30 +1,21 @@
-import dotenv from './dotenv';
 import Sequelize from 'sequelize';
-import url from 'url';
+import './dotenv';
 
-const getCredentials = (clearDb) => {
-	const urlObject = url.parse(clearDb);
-	const auth = urlObject.auth.split(':');
-	return {
-		host: urlObject.host,
-		username: auth[0],
-		password: auth[1],
-		name: urlObject.pathname.substring(1),
-	};
-}
+export default (callback) => {
+  const sequelize = new Sequelize({
+    host: process.env.DATABASE_HOST,
+    username: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
 
-const credentials = getCredentials(process.env.CLEARDB_DATABASE_URL);
+    dialect: 'mysql',
 
-export default callback => {
-	const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL, {
-		dialect: 'mysql',
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000,
+    },
+  });
 
-		pool: {
-			max: 5,
-			min: 0,
-			idle: 10000
-		},
-	});
-
-	callback(sequelize);
-}
+  callback(sequelize);
+};

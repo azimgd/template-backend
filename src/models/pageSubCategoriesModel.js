@@ -55,7 +55,7 @@ export default ({ config, db }) => {
       }],
     });
 
-    const create = (subCategory) => Model.create(subCategory);
+    const create = subCategory => Model.create(subCategory);
 
     return {
       findAll,

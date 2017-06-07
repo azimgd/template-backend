@@ -46,11 +46,11 @@ export default ({ config, db }) => {
    * Queries
    */
   const Queries = (models) => {
-    const findAll = (params) => Model.findAll({ where: params });
+    const findAll = params => Model.findAll({ where: params });
 
     const findOne = ({ where }) => Model.findOne({ where });
 
-    const create = (page) => Model.create(page);
+    const create = page => Model.create(page);
 
     return {
       findAll,
