@@ -60,6 +60,22 @@ export default ({ config, db }) => {
    */
   const Queries = (models) => {
     const findAll = (
+      { offset = 0, limit = 20 },
+    ) => Model.findAll({
+      include: [{
+        model: models.productImages.Model,
+      }, {
+        model: models.productCategories.Model,
+        as: 'category',
+      }, {
+        model: models.productSubCategories.Model,
+        as: 'subcategory',
+      }],
+      offset,
+      limit,
+    });
+
+    const searchBy = (
       { options = [], search = '', offset = 0, limit = 20, ...params },
     ) => Model.findAll({
       where: {
@@ -75,6 +91,7 @@ export default ({ config, db }) => {
         model: models.productOptions.Model,
         as: 'options',
         where: { value: { $or: options } },
+        limit: 10,
       }, {
         model: models.productFeatures.Model,
         as: 'features',
@@ -112,6 +129,7 @@ export default ({ config, db }) => {
 
     return {
       findAll,
+      searchBy,
       findOne,
       create,
     };
