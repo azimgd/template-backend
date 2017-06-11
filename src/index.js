@@ -1,13 +1,17 @@
-import dotenv from './dotenv';
+import './dotenv';
 import http from 'http';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import expressSession from 'express-session';
+import passport from 'passport';
 import initializeDb from './db';
 import middleware from './middleware';
 import api from './api';
 import config from './config.json';
 import modelsConfig from './models';
+import { initLocalStrategy } from './services/passport';
 
 const app = express();
 app.server = http.createServer(app);
@@ -17,9 +21,13 @@ app.use(cors({
   exposedHeaders: config.corsHeaders,
 }));
 
+app.use(cookieParser('#!@#$LPpasdkjf@#'));
+
 app.use(bodyParser.json({
   limit: config.bodyLimit,
 }));
+
+app.use(expressSession({ secret: '#!@#$LPpasdkjf@#', resave: false, saveUninitialized: false }));
 
 // connect to db
 initializeDb((db) => {
@@ -28,8 +36,28 @@ initializeDb((db) => {
   // internal middleware
   app.use(middleware({ config, models }));
 
-  // api router
-  app.use('/api', api({ config, models }));
+  /**
+   * Passport auth
+   */
+  passport.use(initLocalStrategy(models));
+  passport.serializeUser((user, cb) => {
+    cb(null, user.id);
+  });
+
+  passport.deserializeUser((id, cb) => {
+    models.users.queries.findOne({ where: { id } })
+    .then(user => cb(null, user))
+    .catch(cb);
+  });
+
+  /**
+   * API Middleware including session management
+   */
+  app.use('/api',
+    passport.initialize(),
+    passport.session(),
+    api({ config, models }),
+  );
 
   app.server.listen(process.env.PORT || config.port);
 

@@ -1,3 +1,4 @@
+import usersModel from './usersModel';
 import pagesModel from './pagesModel';
 import configModel from './configModel';
 import pageCategoriesModel from './pageCategoriesModel';
@@ -11,6 +12,7 @@ import productsModel from './productsModel';
 
 export default ({ config, db }) => {
   const Models = {
+    users: usersModel({ config, db }),
     pages: pagesModel({ config, db }),
     config: configModel({ config, db }),
     pageCategories: pageCategoriesModel({ config, db }),

@@ -4,9 +4,9 @@ import AccessControl from 'acl';
  * Constatns
  */
 export const aclConstants = {
-  GUEST_USER: 'guestUserType',
-  ADMIN_USER: 'adminUserType',
-  LOGGED_USER: 'loggedUserType',
+  GUEST_USER: 'guestUser',
+  ADMIN_USER: 'adminUser',
+  LOGGED_USER: 'loggedUser',
 };
 
 //eslint-disable-next-line
@@ -19,6 +19,7 @@ acl.allow([
     allows: [
       {
         resources: [
+          '/api/users',
           '/api/pages',
           '/api/products',
           '/api/productImages',

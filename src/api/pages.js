@@ -7,8 +7,8 @@ export default ({ base, models: { pages }, pageValidator }) => resource({
   id: 'page',
 
   middleware(req, res, next) {
-    const user = base.getUserFromSession(req.session);
-    base.endpointAccessControl(req, res, next, { user });
+    const userRole = base.getUserRoleFromSession(req.user);
+    base.endpointAccessControl(req, res, next, { userRole });
   },
 
   load(req, id, callback) {

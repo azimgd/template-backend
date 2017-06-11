@@ -1,20 +1,25 @@
 import winston from 'winston';
 import get from 'lodash/get';
-import acl, { aclConstants } from '../acl';
+import has from 'lodash/has';
+import acl, { aclConstants } from '../services/acl';
 
 export default {
   /**
-   * Get user id, otherwise assign guest user
+   * Get user role, otherwise return guest user role
    */
-  getUserFromSession(session) {
-    return get(session, 'id', aclConstants.GUEST_USER);
+  getUserRoleFromSession(session) {
+    if (!has(session, 'id')) {
+      return aclConstants.GUEST_USER;
+    }
+
+    return aclConstants[get(session, 'role', aclConstants.GUEST_USER)];
   },
 
   /**
    * Access control check for given user
    */
-  endpointAccessControl(req, res, next, { user }) {
-    return acl.isAllowed(user, req.baseUrl, req.method.toLowerCase())
+  endpointAccessControl(req, res, next, { userRole }) {
+    return acl.isAllowed(userRole, req.baseUrl, req.method.toLowerCase())
     .then((isAllowed) => {
       if (isAllowed) { return undefined; }
       throw new Error('User is not allowed');

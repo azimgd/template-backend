@@ -14,6 +14,8 @@ import pageSubCategories from './pageSubCategories';
 import pageSubCategoryValidator from '../validators/pageSubCategoryValidator';
 
 import base from './indexBase';
+import users from './users';
+import userValidator from '../validators/userValidator';
 import productCategories from './productCategories';
 import productCategoryValidator from '../validators/productCategoryValidator';
 import productSubCategories from './productSubCategories';
@@ -33,6 +35,11 @@ const s3routerConfig = {
 };
 
 export const routerEndpoints = {
+  USERS: {
+    root: '/users',
+    login: '/users/login',
+    logout: '/users/logout',
+  },
   PAGES: {
     root: '/pages',
   },
@@ -69,6 +76,14 @@ export const routerEndpoints = {
 
 export default ({ models }) => {
   const api = Router();
+
+  const UsersController = users({ models, base, userValidator });
+  api.get(routerEndpoints.USERS.login,
+    UsersController.routes.login,
+    UsersController.routes.loginOnSuccess,
+  );
+  api.get(routerEndpoints.USERS.logout, UsersController.routes.logout);
+  api.use(routerEndpoints.USERS.root, UsersController.resource);
 
   api.use(routerEndpoints.PAGES.root, pages({ models, base, pageValidator }));
   api.use(routerEndpoints.PRODUCTS.root, products({ models, base, productValidator }));
