@@ -78,7 +78,7 @@ export default ({ models }) => {
   const api = Router();
 
   const UsersController = users({ models, base, userValidator });
-  api.get(routerEndpoints.USERS.login,
+  api.post(routerEndpoints.USERS.login,
     UsersController.routes.login,
     UsersController.routes.loginOnSuccess,
   );
