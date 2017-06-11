@@ -10,9 +10,11 @@ const indexQuerySchema = yup.object().shape({
 });
 
 const cast = data => schema.cast(data);
+const castIndexQuery = data => indexQuerySchema.cast(data);
 
 export default {
   cast,
   schema,
   indexQuerySchema,
+  castIndexQuery,
 };

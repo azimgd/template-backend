@@ -26,6 +26,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "acl": "^0.4.10",
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
     "cors": "^2.7.1",

@@ -1,10 +1,15 @@
 import resource from 'resource-router-middleware';
 import flow from 'lodash/flow';
 
-export default ({ base, config, models: { productCategories }, productCategoryValidator }) => resource({
+export default ({ base, models: { productCategories }, productCategoryValidator }) => resource({
 
   /** Property name to store preloaded entity on `request`. */
   id: 'productCategory',
+
+  middleware(req, res, next) {
+    const user = base.getUserFromSession(req.session);
+    base.endpointAccessControl(req, res, next, { user });
+  },
 
   load(req, id, callback) {
     productCategories.queries.findOne({ where: { id } })

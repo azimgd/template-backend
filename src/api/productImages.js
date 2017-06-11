@@ -1,10 +1,15 @@
 import resource from 'resource-router-middleware';
 import flow from 'lodash/flow';
 
-export default ({ base, config, models: { productImages }, productImageValidator }) => resource({
+export default ({ base, models: { productImages }, productImageValidator }) => resource({
 
   /** Property name to store preloaded entity on `request`. */
   id: 'productImage',
+
+  middleware(req, res, next) {
+    const user = base.getUserFromSession(req.session);
+    base.endpointAccessControl(req, res, next, { user });
+  },
 
   load(req, id, callback) {
     productImages.queries.findOne({ where: { id } })
