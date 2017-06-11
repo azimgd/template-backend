@@ -6,12 +6,14 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
 import passport from 'passport';
+import jwt from 'express-jwt';
 import initializeDb from './db';
 import middleware from './middleware';
 import api from './api';
 import config from './config.json';
 import modelsConfig from './models';
 import { initLocalStrategy } from './services/passport';
+import { getToken } from './services/jwt';
 
 const app = express();
 app.server = http.createServer(app);
@@ -35,6 +37,12 @@ initializeDb((db) => {
 
   // internal middleware
   app.use(middleware({ config, models }));
+
+  app.use(jwt({
+    secret: process.env.JWT_SECRET,
+    credentialsRequired: false,
+    getToken,
+  }));
 
   /**
    * Passport auth

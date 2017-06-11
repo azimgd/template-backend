@@ -1,5 +1,6 @@
 import resource from 'resource-router-middleware';
 import passport from 'passport';
+import jwt from 'jsonwebtoken';
 import flow from 'lodash/flow';
 
 export default ({ base, models: { users }, userValidator }) => ({
@@ -62,7 +63,9 @@ export default ({ base, models: { users }, userValidator }) => ({
     },
 
     loginOnSuccess(req, res) {
-      res.json(req.user);
+      const user = req.user.toJSON();
+      const token = jwt.sign(user, process.env.JWT_SECRET);
+      res.json({ ...user, token });
     },
 
     logout({ logout }, res) {
