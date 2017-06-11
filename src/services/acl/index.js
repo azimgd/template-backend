@@ -34,9 +34,30 @@ acl.allow([
         permissions: ['get'] },
     ],
   },
+  {
+    roles: ['admin'],
+    allows: [
+      {
+        resources: [
+          '/api/users',
+          '/api/pages',
+          '/api/products',
+          '/api/productImages',
+          '/api/pageCategories',
+          '/api/pageSubCategories',
+          '/api/productCategories',
+          '/api/productSubCategories',
+          '/api/productOptions',
+          '/api/productFeatures',
+          '/api/pages',
+        ],
+        permissions: ['get', 'post', 'put', 'patch', 'delete'] },
+    ],
+  },
 ]);
 
 
 acl.addUserRoles(aclConstants.GUEST_USER, 'guest');
+acl.addUserRoles(aclConstants.ADMIN_USER, 'admin');
 
 export default acl;

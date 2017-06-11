@@ -1,6 +1,6 @@
 import winston from 'winston';
 import get from 'lodash/get';
-import has from 'lodash/has';
+import values from 'lodash/values';
 import acl, { aclConstants } from '../services/acl';
 
 export default {
@@ -8,11 +8,17 @@ export default {
    * Get user role, otherwise return guest user role
    */
   getUserRoleFromSession(session) {
-    if (!has(session, 'id')) {
+    const userRole = get(session, 'role');
+
+    if (!userRole) {
       return aclConstants.GUEST_USER;
     }
 
-    return aclConstants[get(session, 'role', aclConstants.GUEST_USER)];
+    if (!values(aclConstants).includes(userRole)) {
+      return aclConstants.GUEST_USER;
+    }
+
+    return userRole;
   },
 
   /**
