@@ -3,11 +3,10 @@
   "version": "0.0.1",
   "main": "dist",
   "scripts": {
-    "dev": "nodemon -w src --exec \"babel-node src\"",
     "build": "babel src -s -D -d dist",
+    "postinstall": "./node_modules/sequelize-cli/bin/sequelize db:migrate && npm run build",
     "start": "node dist",
-    "prestart": "npm run -s build",
-    "postinstall": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
+    "dev": "nodemon -w src --exec \"babel-node src\"",
     "test": "eslint src"
   },
   "eslintConfig": {
