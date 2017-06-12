@@ -1,40 +1,36 @@
-Express & ES6 REST API Boilerplate
-==================================
+# shop cms backend
 
-[![bitHound Score](https://www.bithound.io/github/developit/express-es6-rest-api/badges/score.svg)](https://www.bithound.io/github/developit/express-es6-rest-api)
+### setting up dev environment
+#### create .env file
+Create a .env file inside project directory. You can directly copy .env.example.
+Set following variables to run on locally.
 
-This is a straightforward boilerplate for building REST APIs with ES6 and Express.
-
-- ES6 support via [babel](https://babeljs.io)
-- REST resources as middleware via [resource-router-middleware](https://github.com/developit/resource-router-middleware)
-- CORS support via [cors](https://github.com/troygoode/node-cors)
-- Body Parsing via [body-parser](https://github.com/expressjs/body-parser)
-
-> Tip: If you are using [Mongoose](https://github.com/Automattic/mongoose), you can automatically expose your Models as REST resources using [restful-mongoose](https://git.io/restful-mongoose).
-
-Getting Started
----------------
-
-```sh
-# clone it
-git clone git@github.com:developit/express-es6-rest-api.git
-cd express-es6-rest-api
-
-# Make it your own
-rm -rf .git && git init && npm init
-
-# Install dependencies
-npm install
-
-# Start development live-reload server
-PORT=8080 npm run dev
-
-# Start production server:
-PORT=8080 npm start
+```
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_BUCKET_NAME=
+AWS_REGION_NAME=
+AWS_BUCKET_URL=
+DATABASE_NAME=
+DATABASE_USER=
+DATABASE_PASSWORD=
+DATABASE_HOST=
+JWT_SECRET=
+PORT=
 ```
 
+#### set up nodejs
+install nodejs, use latest stable version.
+You can use [nvm](https://github.com/creationix/nvm) to install latest stable version.
 
-License
--------
+### set up mysql
+setup mysql and create a fresh database
 
-MIT
+#### install local dependencies
+`npm install`
+
+#### run the application
+`npm start`
+
+### deploying application
+Application deployment is heroku compatible 
