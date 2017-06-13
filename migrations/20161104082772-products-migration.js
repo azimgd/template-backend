@@ -15,7 +15,7 @@ module.exports = {
     categoryId: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'ProductCategories',
+        model: 'productCategories',
         key: 'id',
       },
       onUpdate: 'cascade',
@@ -24,7 +24,7 @@ module.exports = {
     subCategoryId: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'ProductSubCategories',
+        model: 'productSubCategories',
         key: 'id',
       },
       onUpdate: 'cascade',
