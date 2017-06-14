@@ -4,7 +4,8 @@
   "main": "dist",
   "scripts": {
     "build": "babel src -s -D -d dist",
-    "postinstall": "./node_modules/sequelize-cli/bin/sequelize db:migrate && npm run build",
+    "postinstall": "npm run build",
+    "prestart": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
     "start": "node dist",
     "dev": "nodemon -w src --exec \"babel-node src\"",
     "test": "eslint src"

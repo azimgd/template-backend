@@ -1,0 +1,28 @@
+version: "2"
+
+services:
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: dbname
+  app:
+    build: .
+    links:
+      - mysql
+    environment:
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      AWS_BUCKET_NAME:
+      AWS_REGION_NAME:
+      AWS_BUCKET_URL:
+      DATABASE_NAME: dbname
+      DATABASE_USER: dbuser
+      DATABASE_PASSWORD: 1234
+      DATABASE_HOST: mysql
+      DB_HOST: mysql
+      JWT_SECRET:
+    ports:
+      - "8899:8080"
