@@ -18,8 +18,8 @@ const indexQuerySchema = yup.object().shape({
   categoryId: yup.number(),
   subCategoryId: yup.number(),
   options: yup.array().of(yup.string()),
-  limit: yup.number(),
-  offset: yup.number(),
+  limit: yup.number().min(0).max(50).default(20),
+  offset: yup.number().min(0),
 });
 
 const cast = data => schema.cast(data);
