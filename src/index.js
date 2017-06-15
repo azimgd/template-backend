@@ -23,13 +23,13 @@ app.use(cors({
   exposedHeaders: config.corsHeaders,
 }));
 
-app.use(cookieParser('#!@#$LPpasdkjf@#'));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use(bodyParser.json({
   limit: config.bodyLimit,
 }));
 
-app.use(expressSession({ secret: '#!@#$LPpasdkjf@#', resave: false, saveUninitialized: false }));
+app.use(expressSession({ secret: process.env.COOKIE_SECRET, resave: false, saveUninitialized: false }));
 
 // connect to db
 initializeDb((db) => {

@@ -1,12 +1,12 @@
 {
   "name": "template_backend",
   "version": "0.0.1",
-  "main": "dist",
+  "main": "build",
   "scripts": {
-    "build": "babel src -s -D -d dist",
+    "build": "babel src -s -D -d build",
     "postinstall": "npm run build",
     "prestart": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
-    "start": "node dist",
+    "start": "node build",
     "dev": "nodemon -w src --exec \"babel-node src\"",
     "test": "eslint src"
   },

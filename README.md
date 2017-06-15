@@ -16,6 +16,7 @@ DATABASE_USER=
 DATABASE_PASSWORD=
 DATABASE_HOST=
 JWT_SECRET=
+COOKIE_SECRET=
 PORT=
 ```
 
@@ -33,4 +34,4 @@ setup mysql and create a fresh database
 `npm start`
 
 ### deploying application
-Application deployment is heroku compatible 
+Application deployment is heroku compatible
