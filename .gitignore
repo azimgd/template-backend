@@ -6,4 +6,5 @@
 .env
 
 /clients
+!/clients/temp
 !/clients/clientseeder.js
