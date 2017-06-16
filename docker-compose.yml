@@ -24,5 +24,6 @@ services:
       DATABASE_HOST: mysql
       DB_HOST: mysql
       JWT_SECRET:
+      COOKIE_SECRET: 
     ports:
       - "8899:8080"
