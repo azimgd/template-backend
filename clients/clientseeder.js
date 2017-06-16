@@ -1,13 +1,13 @@
 /* eslint-disable */
 /* Those are path imports relative to build folder */
-import initializeDb from '../src/db';
-import config from '../src/config.json';
-import modelsConfig from '../src/models';
+const initializeDb = require('../build/db');
+const config = require('../build/config.json');
+const modelsConfig = require('../build/models');
 
-// import client from './client';
+const client = require('./dealx/build');
 
 // connect to db
-initializeDb((db) => {
-	const models = modelsConfig({ config, db });
-  // client(models);
+initializeDb.default((db) => {
+	const models = modelsConfig.default({ config, db });
+  client.default(models);
 });
