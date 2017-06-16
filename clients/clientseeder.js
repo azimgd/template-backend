@@ -4,7 +4,6 @@ require('dotenv').config();
 const initializeDb = require('../build/db');
 const config = require('../build/config.json');
 const modelsConfig = require('../build/models');
-
 const client = require('./client/index');
 
 // connect to db
