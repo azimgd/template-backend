@@ -1,6 +1,5 @@
 import s3uploaderRouter from 'react-s3-uploader/s3router';
 import { Router } from 'express';
-import { version } from '../../package.json';
 
 import pages from './pages';
 import pageValidator from '../validators/pageValidator';
@@ -105,7 +104,7 @@ export default ({ models }) => {
 
 
   api.get('/', (req, res) => {
-    res.json({ version });
+    res.json({ status: 'up' });
   });
 
   return api;
