@@ -5,5 +5,5 @@
 .DS_Store
 .env
 
-clients/
-!clients/clientseeder.js
+/clients
+!/clients/clientseeder.js
