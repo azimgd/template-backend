@@ -3,10 +3,10 @@ import './dotenv';
 
 export default (callback) => {
   const sequelize = new Sequelize({
-    host: process.env.DATABASE_HOST,
-    username: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME,
+    host: process.env.MYSQL_HOST,
+    username: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
 
     dialect: 'mysql',
 
