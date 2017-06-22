@@ -5,9 +5,6 @@ services:
     image: mysql
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-      MYSQL_USER: dbuser
-      MYSQL_PASSWORD: 1234
-      MYSQL_DATABASE: dbname
     env_file:
       - .env
   app:
@@ -15,16 +12,12 @@ services:
     links:
       - mysql
     ports:
-      - "8899:8080"
+      - "${PORT}:8080"
     volumes:
       - ./clients/temp:/usr/src/app/clients/temp
-    environment:
-      MYSQL_DATABASE: dbname
-      MYSQL_USER: dbuser
-      MYSQL_PASSWORD: 1234
-      MYSQL_HOST: mysql
-      DB_HOST: mysql
     depends_on:
       - mysql
+    environment:
+      MYSQL_HOST: mysql
     env_file:
       - .env
