@@ -1,5 +1,7 @@
 FROM node:boron
 
+RUN apt-get update && apt-get install -y netcat
+
 RUN npm -g install babel-cli
 
 # Create app directory
