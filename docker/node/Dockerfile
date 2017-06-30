@@ -10,12 +10,9 @@ WORKDIR /usr/src/app
 
 USER node
 
-COPY docker/wait-for /usr/src/app
-
 # Bundle app source
-COPY . /usr/src/app
 RUN npm install
 
 EXPOSE 8080
 ENV PORT 8080
-CMD ./wait-for --timeout=180 $MYSQL_HOST:3306 -- npm start
+CMD ./docker/wait-for --timeout=180 $MYSQL_HOST:3306 -- npm start
