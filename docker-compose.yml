@@ -18,7 +18,6 @@ services:
       - "${PORT}:8080"
     volumes:
       - ".:/usr/src/app"
-      - ./clients/temp:/usr/src/app/clients/temp
     environment:
       MYSQL_HOST: mysql
     env_file:
